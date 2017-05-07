@@ -9,17 +9,62 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let numberOfButtons = 14
+    
+    let label: CustomLabel = {
+        var l = CustomLabel()
+        
+        
+        return l
+    }()
+    
+    lazy var button: [CustomButton] = {
+        
+        var pb = [CustomButton]()
+        
+        
+        for i in 0 ..< self.numberOfButtons {
+            let b = CustomButton()
+            
+            b.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
+            b.tag = i
+            pb.append(b)
 
+        }
+        return pb
+    }()
+    
+    func buttonTapped(_ sender: CustomButton){
+         print(sender.tag)
+    }
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+     
+        
+        
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
+
+//layouts
+extension ViewController {
+    //label
+    
+    func layoutWithCode(){
+        
+    }
+
+    
+    
+    
+    
+}
+
+
 
