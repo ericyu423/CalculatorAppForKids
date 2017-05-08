@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		D48B27BF1EBFBD2C00657278 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48B27BE1EBFBD2C00657278 /* AppDelegate.swift */; };
 		D48B27C11EBFBD2C00657278 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48B27C01EBFBD2C00657278 /* ViewController.swift */; };
-		D48B27C41EBFBD2C00657278 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D48B27C21EBFBD2C00657278 /* Main.storyboard */; };
 		D48B27C71EBFBD2C00657278 /* CalculatorAppForKids.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D48B27C51EBFBD2C00657278 /* CalculatorAppForKids.xcdatamodeld */; };
 		D48B27C91EBFBD2C00657278 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D48B27C81EBFBD2C00657278 /* Assets.xcassets */; };
 		D48B27CC1EBFBD2C00657278 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D48B27CA1EBFBD2C00657278 /* LaunchScreen.storyboard */; };
 		D48B27D41EBFBE6200657278 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48B27D31EBFBE6200657278 /* CustomButton.swift */; };
-		D48B27D71EBFC69600657278 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48B27D61EBFC69600657278 /* CustomLabel.swift */; };
+		D48B27D71EBFC69600657278 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48B27D61EBFC69600657278 /* CustomView.swift */; };
 		D48B27D91EBFC77800657278 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48B27D81EBFC77800657278 /* extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -22,13 +21,12 @@
 		D48B27BB1EBFBD2C00657278 /* CalculatorAppForKids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalculatorAppForKids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48B27BE1EBFBD2C00657278 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D48B27C01EBFBD2C00657278 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D48B27C31EBFBD2C00657278 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D48B27C61EBFBD2C00657278 /* CalculatorAppForKids.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalculatorAppForKids.xcdatamodel; sourceTree = "<group>"; };
 		D48B27C81EBFBD2C00657278 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D48B27CB1EBFBD2C00657278 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D48B27CD1EBFBD2C00657278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D48B27D31EBFBE6200657278 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		D48B27D61EBFC69600657278 /* CustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		D48B27D61EBFC69600657278 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		D48B27D81EBFC77800657278 /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,7 +62,7 @@
 			children = (
 				D48B27C01EBFBD2C00657278 /* ViewController.swift */,
 				D48B27D31EBFBE6200657278 /* CustomButton.swift */,
-				D48B27D61EBFC69600657278 /* CustomLabel.swift */,
+				D48B27D61EBFC69600657278 /* CustomView.swift */,
 				D48B27D81EBFC77800657278 /* extensions.swift */,
 				D48B27D51EBFBE7300657278 /* Supporting Files */,
 			);
@@ -75,7 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				D48B27BE1EBFBD2C00657278 /* AppDelegate.swift */,
-				D48B27C21EBFBD2C00657278 /* Main.storyboard */,
 				D48B27C81EBFBD2C00657278 /* Assets.xcassets */,
 				D48B27CA1EBFBD2C00657278 /* LaunchScreen.storyboard */,
 				D48B27CD1EBFBD2C00657278 /* Info.plist */,
@@ -146,7 +143,6 @@
 			files = (
 				D48B27CC1EBFBD2C00657278 /* LaunchScreen.storyboard in Resources */,
 				D48B27C91EBFBD2C00657278 /* Assets.xcassets in Resources */,
-				D48B27C41EBFBD2C00657278 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D48B27C11EBFBD2C00657278 /* ViewController.swift in Sources */,
-				D48B27D71EBFC69600657278 /* CustomLabel.swift in Sources */,
+				D48B27D71EBFC69600657278 /* CustomView.swift in Sources */,
 				D48B27BF1EBFBD2C00657278 /* AppDelegate.swift in Sources */,
 				D48B27D41EBFBE6200657278 /* CustomButton.swift in Sources */,
 				D48B27C71EBFBD2C00657278 /* CalculatorAppForKids.xcdatamodeld in Sources */,
@@ -169,14 +165,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D48B27C21EBFBD2C00657278 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D48B27C31EBFBD2C00657278 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D48B27CA1EBFBD2C00657278 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -293,6 +281,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ericyu423.CalculatorAppForKids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -306,6 +295,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ericyu423.CalculatorAppForKids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -328,6 +318,7 @@
 				D48B27D21EBFBD2C00657278 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

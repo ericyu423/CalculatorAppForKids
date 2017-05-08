@@ -61,4 +61,34 @@ extension UIView {
         }
     }
     
+    func anchor(top: NSLayoutYAxisAnchor?, lead: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trail: NSLayoutXAxisAnchor?,  paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let top = top {
+            self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
+        }
+        
+        if let lead = lead {
+            self.leadingAnchor.constraint(equalTo: lead, constant: paddingLeft).isActive = true
+        }
+        
+        if let bottom = bottom {
+            bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
+        }
+        
+        if let trail = trail {
+            trailingAnchor.constraint(equalTo: trail, constant: -paddingRight).isActive = true
+        }
+        
+        if width != 0 {
+            widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+        
+        if height != 0 {
+            heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
+    }
+
+    
 }
