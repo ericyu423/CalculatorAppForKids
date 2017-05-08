@@ -14,11 +14,15 @@ protocol CustomViewDataSource {
 
 }
 
-class CustomView: UIView {
+class CustomView: UIView,UIGestureRecognizerDelegate {
     
     //MARK: Vars
     let letterArray = "_ABCDEFGH".characters.flatMap { $0 }
     var delegate: CustomViewDataSource?
+    
+    var selectV: UIView?
+    var cells = [String: UIView]()
+
     
     var viewPerRow = 20
     var viewPerCol = 7
@@ -69,16 +73,44 @@ class CustomView: UIView {
                 v.layer.borderWidth = 0.5
                 
                 let key = "\(i+1)|\(letterArray[j+1])"
-                print(key)
-                //cells.updateValue(v, forKey: key)*/
+                //print(key)
+                cells.updateValue(v, forKey: key)
                 
                 v.anchor(top:topAnchor, left: leftAnchor, bottom: nil,right: nil, paddingTop: CGFloat(j) * width, paddingLeft: CGFloat(i) * width, paddingBottom: 10, paddingRight: 10, width: width, height: width)
+                
             }
         }
         
+        //TODO: Tap is to test if the correct block is mapped
+        //if there time put this in Test Module 
+      
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tap.delegate = self
+        self.addGestureRecognizer(tap)
+        
+        
         adjustSuperView()
+        
     }
     
+    func handleTapGesture(gesture: UITapGestureRecognizer){
+        let loc:CGPoint = gesture.location(in: self)
+        
+        let i = Int(loc.x / width) + 1
+        let j = letterArray[Int(loc.y / width) + 1]
+        
+        let key = "\(i)|\(j)"
+        
+        print(key)
+        
+        
+        guard let cellV = cells[key] else {return}
+        
+        print(cellV)//current frame
+        
+
+        
+    }
     
     func adjustSuperView(){
         if bounds.height > CGFloat(viewPerCol) * width {
