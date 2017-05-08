@@ -11,11 +11,11 @@ import UIKit
 class ViewController: UIViewController, CustomViewDataSource {
     
     //MARK: Vars
-    let numberOfButtons = 14
-    let dStackSpacing = 10
-    let numberOfButtonIndButtonStack = 10
-    var labelAnchorContant: NSLayoutConstraint!
-    var labelAnchorHeight: NSLayoutConstraint!
+    let numberOfButtons = 14 //includes buttons not in stackview
+    let stackviewSpacing = 10
+    let buttonsInStackview = 10
+    var labelTopAnchor: NSLayoutConstraint!
+    var labelHeightAnchor: NSLayoutConstraint!
     
     
     //MARK: Outlets
@@ -24,7 +24,7 @@ class ViewController: UIViewController, CustomViewDataSource {
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.distribution = .fillEqually
         sv.axis = .horizontal
-        sv.spacing = 10 //CGFloat(dStackSpacing): does not work - iOS bug
+        sv.spacing = 10 //CGFloat(stackviewSpacing) - iOS bug does not take constant 
         sv.heightAnchor.constraint(equalTo: sv.widthAnchor)
         sv.backgroundColor = .red
         return sv
@@ -82,17 +82,9 @@ class ViewController: UIViewController, CustomViewDataSource {
         
     }
     
-    func adjustLabelOffset(constant: CGFloat){
-        
-        labelAnchorContant.constant = constant/2
-        
-        labelAnchorHeight.constant -= constant
-        
-        //dbuttonStack.updateConstraints()
-        //view.updateConstraints()
-        //view.layoutIfNeeded()
-        //view.setNeedsDisplay()
-    
+    func adjustLabelOffset(constant: CGFloat){ //re-adjust size and put into a relative center with respect to origianl size
+        labelTopAnchor.constant = constant/2
+        labelHeightAnchor.constant -= constant
     }
     
     
@@ -112,23 +104,23 @@ extension ViewController {
         view.addSubview(label)
         label.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0)
         
-        labelAnchorHeight = label.heightAnchor.constraint(equalToConstant: labelHeight)
-        labelAnchorHeight.isActive = true
+        labelHeightAnchor = label.heightAnchor.constraint(equalToConstant: labelHeight)
+        labelHeightAnchor.isActive = true
         
-        labelAnchorContant = label.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10)
-        labelAnchorContant!.isActive = true
+        labelTopAnchor = label.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10)
+        labelTopAnchor!.isActive = true
         
         
         //display digit buttons
-        for i in 0...(numberOfButtonIndButtonStack - 1) {
+        for i in 0...(buttonsInStackview - 1) {
             dbuttonStack.addArrangedSubview(button[i])
         }
         view.addSubview(dbuttonStack)
         
         
-        let totalSpace = CGFloat((numberOfButtonIndButtonStack - 1) * (dStackSpacing)) - 10 - 10
+        let totalSpace = CGFloat((buttonsInStackview - 1) * (stackviewSpacing)) - 10 - 10
         
-        let height = (view.frame.width - totalSpace) / CGFloat(numberOfButtonIndButtonStack)
+        let height = (view.frame.width - totalSpace) / CGFloat(buttonsInStackview)
         
         //height independent of label anchor because label can move down//
         dbuttonStack.anchor(top: topLayoutGuide.bottomAnchor, left: label.leftAnchor, bottom: nil, right: label.rightAnchor, paddingTop: labelHeight + 10, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 0, height: height)

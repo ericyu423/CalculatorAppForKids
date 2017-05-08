@@ -35,7 +35,6 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
     //MARK: Outlets
     var label: UILabel = {
         let label = UILabel()
-        
         return label
     }()
     
@@ -44,8 +43,6 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
     override func draw(_ rect: CGRect) {
          setupLabel()
          displayBlocks()
-        
-        
     }
     
     //MARK: functions
@@ -82,7 +79,7 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
         }
         
         //TODO: Tap is to test if the correct block is mapped
-        //if there time put this in Test Module 
+        //if there is time put this in Test Module
       
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tap.delegate = self
@@ -120,6 +117,67 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
             delegate?.adjustLabelOffset(constant: offset)
         }
     }
+}
+
+extension CustomView {
+    
+    func display1(){
+        //d-11
+        
+    }
+    func display2(){
+        //d-10,d-11
+    }
+    func display3(){
+        //d-9,d-10,d11
+    }
+    func display4(){
+        //      d-10
+        //  e-9,e-10,e-11
+        
+    }
+    func display5(){
+        //  d-9     ,d-11
+        //  e-9,e-10,e-11
+
+        
+    }
+    func display6(){
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+        
+    }
+    func display7(){
+        //      c-10
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+        
+    }
+    func display8(){
+        //  c-9      d-11
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+        
+    }
+    func display9(){
+        //  c-9,c-10,c-11
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+        
+    }
+    func display10(){
+        //       b10
+        //  c-9,c-10,c-11
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+        
+    }
+    
+    
+    
+    
+    
+    
 }
 
 /* block map
