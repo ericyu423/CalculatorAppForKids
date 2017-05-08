@@ -16,24 +16,57 @@ protocol CustomViewDataSource {
 
 class CustomView: UIView,UIGestureRecognizerDelegate {
     
+    fileprivate let displayDict = [
+        1 : ["D|10"],
+        2 : ["D|10","D|11"],
+        3 : ["E|9","E|10","E|11"],
+        4 : ["D|10","E|9","E|10","E|11"],
+        //      d-10
+        //  e-9,e-10,e-11
+        5 :["D|9","D|11","E|9","E|10","E|11"],
+        //  d-9     ,d-11
+        //  e-9,e-10,e-11
+        6 :["D|9","D|10","D|11","E|9","E|10","E|11"],
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+        7 :["C|10","D|9","D|10","D|11","E|9","E|10","E|11"],
+        //      c-10
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+        8 :["C|9","C|11","D|9","D|10","D|11","E|9","E|10","E|11"],
+        //  c-9      d-11
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+        9 : ["C|9","C|10","C|11","D|9","D|10","D|11","E|9","E|10","E|11"],
+        //  c-9,c-10,c-11
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+        
+        10 : ["B|10","C|9","C|10","C|11","D|9","D|10","D|11","E|9","E|10","E|11"]
+        //       b10
+        //  c-9,c-10,c-11
+        //  d-9,d-10,d-11
+        //  e-9,e-10,e-11
+    ]
+
     //MARK: Vars
-    let letterArray = "_ABCDEFGH".characters.flatMap { $0 }
+    fileprivate let letterArray = "_ABCDEFGH".characters.flatMap { $0 }
     var delegate: CustomViewDataSource?
     
-    var selectV: UIView?
-    var cells = [String: UIView]()
+    fileprivate var selectV: UIView?
+    fileprivate var cells = [String: UIView]()
 
     
-    var viewPerRow = 20
-    var viewPerCol = 7
-    var width: CGFloat {
+    fileprivate var viewPerRow = 20
+    fileprivate var viewPerCol = 7
+    fileprivate var width: CGFloat {
         get {
             return bounds.width / 20
         }
     }
  
     //MARK: Outlets
-    var label: UILabel = {
+    fileprivate var label: UILabel = {
         let label = UILabel()
         return label
     }()
@@ -45,22 +78,16 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
          displayBlocks()
     }
     
-    //MARK: functions
-    //TODO: might need to be deleted
-    func setTitle(text: String)
-    {
-        label.text = text
-    }
  
     //TODO: for test only, to be deleted
-    func setupLabel(){
+    private func setupLabel(){
         addSubview(label)
         label.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 50, height: 100)
     }
     
     
     //TODO: function too long i loop probably should be in it's own function
-    func displayBlocks(){
+    private func displayBlocks(){
         for j in 0..<viewPerCol{
             for i in 0..<viewPerRow{
                 let v = UIView()
@@ -68,8 +95,9 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
                 v.backgroundColor = .white
                 v.layer.borderColor = UIColor.black.cgColor
                 v.layer.borderWidth = 0.5
-                
-                let key = "\(i+1)|\(letterArray[j+1])"
+                v.accessibilityIdentifier = "\(letterArray[j+1])|\(i+1)"
+               
+                let key = "\(letterArray[j+1])|\(i+1)"
                 //print(key)
                 cells.updateValue(v, forKey: key)
                 
@@ -90,17 +118,14 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
         
     }
     
-    func handleTapGesture(gesture: UITapGestureRecognizer){
+    @objc private func handleTapGesture(gesture: UITapGestureRecognizer){
         let loc:CGPoint = gesture.location(in: self)
         
         let i = Int(loc.x / width) + 1
         let j = letterArray[Int(loc.y / width) + 1]
         
         let key = "\(i)|\(j)"
-        
-        print(key)
-        
-        
+    
         guard let cellV = cells[key] else {return}
         
         print(cellV)//current frame
@@ -109,7 +134,7 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
         
     }
     
-    func adjustSuperView(){
+    private func adjustSuperView(){
         if bounds.height > CGFloat(viewPerCol) * width {
             
             let offset =  bounds.height - CGFloat(viewPerCol) * width
@@ -118,66 +143,25 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
         }
     }
 }
+//TODO: translate these
 
-extension CustomView {
+extension CustomView { //to be acess by ViewController
     
-    func display1(){
-        //d-11
-        
+    func display(number: Int){
+        guard let keys = displayDict[number] else {return}
+        for key in keys {
+            guard let cellV = cells[key] else {return}
+            cellV.backgroundColor = .black
+        }
     }
-    func display2(){
-        //d-10,d-11
+    
+    //MARK: functions
+    //TODO: might need to be deleted
+    func setTitle(text: String)
+    {
+        label.text = text
     }
-    func display3(){
-        //d-9,d-10,d11
-    }
-    func display4(){
-        //      d-10
-        //  e-9,e-10,e-11
-        
-    }
-    func display5(){
-        //  d-9     ,d-11
-        //  e-9,e-10,e-11
 
-        
-    }
-    func display6(){
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
-        
-    }
-    func display7(){
-        //      c-10
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
-        
-    }
-    func display8(){
-        //  c-9      d-11
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
-        
-    }
-    func display9(){
-        //  c-9,c-10,c-11
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
-        
-    }
-    func display10(){
-        //       b10
-        //  c-9,c-10,c-11
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
-        
-    }
-    
-    
-    
-    
-    
-    
 }
 
 /* block map
