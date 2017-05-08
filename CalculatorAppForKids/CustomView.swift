@@ -9,9 +9,7 @@
 import UIKit
 
 protocol CustomViewDataSource {
-    
     func adjustLabelOffset(constant: CGFloat)
-
 }
 
 class CustomView: UIView,UIGestureRecognizerDelegate {
@@ -48,15 +46,12 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
         //  d-9,d-10,d-11
         //  e-9,e-10,e-11
     ]
-
+    
     //MARK: Vars
     fileprivate let letterArray = "_ABCDEFGH".characters.flatMap { $0 }
     var delegate: CustomViewDataSource?
-    
     fileprivate var selectV: UIView?
     fileprivate var cells = [String: UIView]()
-
-    
     fileprivate var viewPerRow = 20
     fileprivate var viewPerCol = 7
     fileprivate var width: CGFloat {
@@ -64,29 +59,25 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
             return bounds.width / 20
         }
     }
- 
+    
     //MARK: Outlets
     fileprivate var label: UILabel = {
         let label = UILabel()
         return label
     }()
     
-    
-    
     override func draw(_ rect: CGRect) {
-         setupLabel()
-         displayBlocks()
+        setupLabel()
+        displayBlocks()
     }
     
- 
-    //TODO: for test only, to be deleted
+    //TODO: need this to do something else in the future
     private func setupLabel(){
         addSubview(label)
         label.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 50, height: 100)
     }
     
-    
-    //TODO: function too long i loop probably should be in it's own function
+    //TODO: need to refactor this function
     private func displayBlocks(){
         for j in 0..<viewPerCol{
             for i in 0..<viewPerRow{
@@ -96,7 +87,7 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
                 v.layer.borderColor = UIColor.black.cgColor
                 v.layer.borderWidth = 0.5
                 v.accessibilityIdentifier = "\(letterArray[j+1])|\(i+1)"
-               
+                
                 let key = "\(letterArray[j+1])|\(i+1)"
                 //print(key)
                 cells.updateValue(v, forKey: key)
@@ -108,7 +99,7 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
         
         //TODO: Tap is to test if the correct block is mapped
         //if there is time put this in Test Module
-      
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tap.delegate = self
         self.addGestureRecognizer(tap)
@@ -125,12 +116,12 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
         let j = letterArray[Int(loc.y / width) + 1]
         
         let key = "\(i)|\(j)"
-    
+        
         guard let cellV = cells[key] else {return}
         
         print(cellV)//current frame
         
-
+        
         
     }
     
@@ -143,9 +134,9 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
         }
     }
 }
-//TODO: translate these
 
-extension CustomView { //to be acess by ViewController
+
+extension CustomView { //public function
     
     func display(number: Int){
         guard let keys = displayDict[number] else {return}
@@ -155,13 +146,11 @@ extension CustomView { //to be acess by ViewController
         }
     }
     
-    //MARK: functions
     //TODO: might need to be deleted
     func setTitle(text: String)
     {
         label.text = text
     }
-
 }
 
 /* block map
