@@ -14,50 +14,57 @@ protocol CustomViewDataSource {
 
 class CustomView: UIView,UIGestureRecognizerDelegate {
     
+    var delegate: CustomViewDataSource?
+    
+    
+    //order matters in animation
     fileprivate let displayDict = [
-        1 : ["D|10"],
-        2 : ["D|10","D|11"],
+        1 : ["E|9"],
+        2 : ["E|9","E|10"],
         3 : ["E|9","E|10","E|11"],
-        4 : ["D|10","E|9","E|10","E|11"],
-        //      d-10
-        //  e-9,e-10,e-11
-        5 :["D|9","D|11","E|9","E|10","E|11"],
-        //  d-9     ,d-11
-        //  e-9,e-10,e-11
-        6 :["D|9","D|10","D|11","E|9","E|10","E|11"],
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
-        7 :["C|10","D|9","D|10","D|11","E|9","E|10","E|11"],
-        //      c-10
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
-        8 :["C|9","C|11","D|9","D|10","D|11","E|9","E|10","E|11"],
-        //  c-9      d-11
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
-        9 : ["C|9","C|10","C|11","D|9","D|10","D|11","E|9","E|10","E|11"],
-        //  c-9,c-10,c-11
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
+        //      C9,C10,C11
+        4 : ["E|9","E|10","E|11","D|10"],
+        //         D10
+        //      E9,E10,E11
+        5 :["E|9","E|10","E|11","D|9","D|11"],
+        //      D9     D11
+        //      E9,E10,E11
+        6 :["E|9","E|10","E|11","D|9","D|10","D|11"],
+        //      D9,D10,D11
+        //      E9,E10,E11
+        7 :["E|9","E|10","E|11","D|9","D|10","D|11","C|10"],
+        //          C10
+        //      D9,D10,D11
+        //      E9,E10,E11
+        8 :["E|9","E|10","E|11","D|9","D|10","D|11","C|9","C|11"],
+        //      C9     C11
+        //      D9,D10,D11
+        //      E9,E10,E11
+        9 : ["E|9","E|10","E|11","D|9","D|10","D|11","C|9","C|10","C|11"],
+        //      C9,C10,C11
+        //      D9,D10,D11
+        //      E9,E10,E11
         
-        10 : ["B|10","C|9","C|10","C|11","D|9","D|10","D|11","E|9","E|10","E|11"]
-        //       b10
-        //  c-9,c-10,c-11
-        //  d-9,d-10,d-11
-        //  e-9,e-10,e-11
+        9 : ["E|9","E|10","E|11","D|9","D|10","D|11","C|9","C|10","C|11","B|10"]
+        //          B10
+        //      C9,C10,C11
+        //      D9,D10,D11
+        //      E9,E10,E11
     ]
     
     //MARK: Vars
-    fileprivate let letterArray = "_ABCDEFGH".characters.flatMap { $0 }
-    var delegate: CustomViewDataSource?
+    fileprivate let letterArray = "_ABCDEFG".characters.flatMap { $0 }
     fileprivate var selectV: UIView?
     fileprivate var cells = [String: UIView]()
     fileprivate var viewPerRow = 20
     fileprivate var viewPerCol = 7
+ 
+    
+    fileprivate var animateBlockSpeed: Double = 0.5
     fileprivate var width: CGFloat {
-        get {
+ 
             return bounds.width / 20
-        }
+
     }
     
     //MARK: Outlets
@@ -84,8 +91,8 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
                 let v = UIView()
                 addSubview(v)
                 v.backgroundColor = .white
-                v.layer.borderColor = UIColor.black.cgColor
-                v.layer.borderWidth = 0.5
+                v.layer.borderColor = UIColor.white.cgColor
+                v.layer.borderWidth = 2
                 v.accessibilityIdentifier = "\(letterArray[j+1])|\(i+1)"
                 
                 let key = "\(letterArray[j+1])|\(i+1)"
@@ -136,16 +143,52 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
 }
 
 
-extension CustomView { //public function
+extension CustomView { //internal function
     
-    func display(number: Int){
-        guard let keys = displayDict[number] else {return}
-        for key in keys {
-            guard let cellV = cells[key] else {return}
-            cellV.backgroundColor = .black
+    func clear() {
+        for cell in cells {
+            cell.value.backgroundColor = .clear
         }
     }
     
+    func animateRecursion(keys:[String]){
+      
+        //mutated copy
+        
+        var remainder = keys
+        
+        if remainder.count ==  0 {
+            return
+        }
+        
+        let key = remainder.remove(at: 0)
+        
+        UIView.animate(withDuration: animateBlockSpeed, delay: 0.0, options:[], animations: {
+            guard let cellV = self.cells[key] else {return}
+            cellV.backgroundColor = .black
+          
+            
+        }, completion: { finished in
+            if finished {
+                self.animateRecursion(keys: remainder)
+            }
+        })
+            
+        
+       
+    }
+    
+    func setAnimateBlockSpeed(speed: Int){
+        animateBlockSpeed = Double(speed)
+    }
+    
+    func display(number: Int){
+        
+        clear()
+        guard let keys = displayDict[number] else {return}
+        animateRecursion(keys: keys)
+ 
+    }
     //TODO: might need to be deleted
     func setTitle(text: String)
     {
@@ -163,4 +206,5 @@ extension CustomView { //public function
  F
  G
  0 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20
+ 
  */

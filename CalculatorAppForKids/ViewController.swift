@@ -34,7 +34,7 @@ class ViewController: UIViewController, CustomViewDataSource {
         var l = CustomView()
         l.delegate = self
         
-        l.backgroundColor = .gray
+        l.backgroundColor = .clear
 
         return l
     }()
@@ -50,11 +50,10 @@ class ViewController: UIViewController, CustomViewDataSource {
             b.layer.borderColor = UIColor.black.cgColor
             b.layer.borderWidth = 1
             b.layer.cornerRadius = 3
-            b.setTitle("\(i)", for: UIControlState.normal)
+            b.setTitle("\(i+1)", for: UIControlState.normal)
             b.setTitleColor(.black, for: UIControlState.normal)
             b.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
             b.tag = i
-
             pb.append(b)
             
         }
@@ -78,7 +77,8 @@ class ViewController: UIViewController, CustomViewDataSource {
     
     func buttonTapped(_ sender: CustomButton){
         
-        label.setTitle(text: "\(sender.tag)")
+        label.display(number: sender.tag + 1) //number button start from 1
+        
         
     }
     
@@ -122,7 +122,7 @@ extension ViewController {
         
         let height = (view.frame.width - totalSpace) / CGFloat(buttonsInStackview)
         
-        //height independent of label anchor because label can move down//
+        //height independent of label anchor because label(UIView) can move//
         dbuttonStack.anchor(top: topLayoutGuide.bottomAnchor, left: label.leftAnchor, bottom: nil, right: label.rightAnchor, paddingTop: labelHeight + 10, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 0, height: height)
    
     }
