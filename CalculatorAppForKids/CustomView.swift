@@ -45,7 +45,7 @@ class CustomView: UIView,UIGestureRecognizerDelegate {
         //      D9,D10,D11
         //      E9,E10,E11
         
-        9 : ["E|9","E|10","E|11","D|9","D|10","D|11","C|9","C|10","C|11","B|10"]
+        10 : ["E|9","E|10","E|11","D|9","D|10","D|11","C|9","C|10","C|11","B|10"]
         //          B10
         //      C9,C10,C11
         //      D9,D10,D11
