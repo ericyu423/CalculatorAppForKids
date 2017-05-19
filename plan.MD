@@ -2,9 +2,7 @@
 
 Project starting date     5/7/2017
 
-To App Store              5/14/2017
 
-BugFixing Add features    5/21/2017
 
 
 
